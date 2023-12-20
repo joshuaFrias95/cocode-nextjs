@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server'
+import Proyecto from './Proyecto.model'
 
-
-export function GET() {
-  return NextResponse.json("Lista de proyectos")
+export async function GET() {
+  const proyecto = await Proyecto.findAll()
+  return NextResponse.json({proyecto: proyecto})
 }
 
 export function POST() {
