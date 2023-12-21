@@ -1,12 +1,9 @@
 const { DataTypes } = require("sequelize");
 import sequelize from "@/libs/db";
+import Dificultad from "../dificultad/dificultad.model";
+
 
 const Proyecto = sequelize.define("proyecto", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
   nombre: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -27,12 +24,19 @@ const Proyecto = sequelize.define("proyecto", {
   },
   tareas: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   dificultad: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
+},  {
+  tableName: "proyectos", 
 });
+
+// Esto de abajo está generando un error por que la asociacion, en el modelo hay 'dificultad' y se esta asociando a una tabla del mismo nombre. No sé si funcione pero podríamos llamar dificultad_id en este modelo e intentar la asocicacion de nuevo. 
+
+Proyecto.hasOne(Dificultad, { foreignKey: 'id'});
+Dificultad.belongsTo(Proyecto, { foreignKey: 'id' });
 
 export default Proyecto;

@@ -8,7 +8,6 @@
 
 const { Sequelize } = require('sequelize')
 
-
 const sequelize = new Sequelize({
   dialect: 'mysql',
   dialectModule: require('mysql2'),
